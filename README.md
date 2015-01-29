@@ -12,3 +12,7 @@ IE590 Homework 1
 	
 "background and style"
 	added a background and fixed the resulting table readability issues. Also made minor changes to header style and margins.
+	
+"links and so much more"
+	added a second page with identical information, but different styling. Altered the first page colors.
+	Note the use of a hex value for one of the colors, and referencing the text at the bottom not by its tag, but by its ID.
