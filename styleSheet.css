@@ -1,3 +1,16 @@
+
+
+h1{
+	border: 2px solid #FFFF00;
+	background-color: blue;
+	color: yellow
+}
+
+th{
+	text-align: right;
+}
+
 td{
 	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: blue
 }
