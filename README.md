@@ -9,3 +9,6 @@ IE590 Homework 1
 	
 "styling changes"
 	added many styling elements to styleSheet.css, and removed the <meta> tag since I don't need the page searchable.
+	
+"background and style"
+	added a background and fixed the resulting table readability issues. Also made minor changes to header style and margins.

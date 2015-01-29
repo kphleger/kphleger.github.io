@@ -1,16 +1,29 @@
-
-
-h1{
-	border: 2px solid #FFFF00;
-	background-color: blue;
-	color: yellow
+html {
+	background: url(AndrewRyan.jpg) no-repeat center center fixed;
+	background-size: cover;
+	/* I hope you recognize the game! It's one of my favorites. And what a perfectly fitting, imposing introduction... */
 }
 
-th{
+h1 {
+	border: 2px solid lightgray;
+	border-bottom: 4px solid gray;
+	border-right: 4px solid darkgray;
+	background-color: blue;
+	color: yellow;
+	margin-left: 30px;
+	margin-right: 30px;
+}
+
+table {
+	background-color: lightgray;
+	margin-left: 30px;
+}
+
+th {
 	text-align: right;
 }
 
-td{
+td {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	color: blue
 }
