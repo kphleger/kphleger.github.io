@@ -1,21 +1,64 @@
-/*var obj = JSON.parse ('{"students" : '+
-	'[{"Name":"Cristen Oconnell","GPA":3,"GRE_V":150,"GRE_Q":170,"Essay":5,"Recom":1},'+
-	'{"Name":"Marla Provenzano","GPA":4,"GRE_V":165,"GRE_Q":169,"Essay":3,"Recom":2},'+
-	'{"Name":"Cleta Morena","GPA":3.2,"GRE_V":170,"GRE_Q":168,"Essay":2,"Recom":2}]}');
 
-function buttonChange() {
-	document.getElementById("george").innerHTML = obj.students[0].Name;
-}*/
+function averageGPA(obj) {
+	var tot = 0;
+	for (i = 0; i < obj.length; i++) {
+//		console.log(obj[i].GPA);
+		tot += obj[i].GPA;
+	}
+	return tot/obj.length;
+}
+function averageGRE_V(obj) {
+	var tot = 0;
+	for (i = 0; i < obj.length; i++) {
+//		console.log(obj[i].GRE_V);
+		tot += obj[i].GRE_V;
+	}
+	return tot/obj.length;
+}
+function averageGRE_Q(obj) {
+	var tot = 0;
+	for (i = 0; i < obj.length; i++) {
+//		console.log(obj[i].GRE_Q);
+		tot += obj[i].GRE_Q;
+	}
+	return tot/obj.length;
+}
+function averageEssay(obj) {
+	var tot = 0;
+	for (i = 0; i < obj.length; i++) {
+//		console.log(obj[i].Essay);
+		tot += obj[i].Essay;
+	}
+	return tot/obj.length;
+}
+function averageRecom(obj) {
+	var tot = 0;
+	for (i = 0; i < obj.length; i++) {
+//		console.log(obj[i].Recom);
+		tot += obj[i].Recom;
+	}
+	return tot/obj.length;
+}
 
 $(function(){
 	var JSONLink = "https://hivelab.org/static/students.json";
-	$.getJSON(JSONLink, function(data) {	
+	$.getJSON(JSONLink, function(data) {
+		
 		$.each(data, function(i,f) {
 			var tblRow = "<tr>" + "<td>" +f.Name + "</td>" + "<td>" + f.GPA
 			+ "</td>" + "<td>" + f.GRE_V + "</td>" + "<td> " + f.GRE_Q +
 			"</td>" + "<td>" + f.Essay + "</td>" + "<td>" + f.Recom +
 			"</td>" + "</tr>";
+//			console.log(f.Name);
 			$(tblRow).appendTo("#entrydata tbody");
 		});
 	});
 });
+
+//students = JSON.parse(students);
+
+//document.getElementById("george").innerHTML = students;
+
+/*
+
+*/
