@@ -1,0 +1,13 @@
+table {
+	background-color: lightgray;
+	margin-left: 30px;
+}
+
+th {
+	text-align: right;
+}
+
+td {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: blue
+}
