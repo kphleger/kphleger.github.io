@@ -1,13 +1,19 @@
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background-color: lightblue;
+}
+
 table {
 	background-color: lightgray;
 	margin-left: 30px;
+	border: 2px solid black;
 }
 
 th {
-	text-align: right;
+	border: 1px solid black;
+	text-align: left;
 }
 
 td {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
 	color: blue
 }
