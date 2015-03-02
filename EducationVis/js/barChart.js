@@ -1,5 +1,5 @@
 var w = 750;
-var h = 500;
+var h = 300;
 /*
 var mathData = [
 	[12,3],
@@ -29,7 +29,7 @@ var x = d3.scale.linear()
 	.range([0,(w/2)-10]);
 var y = d3.scale.linear()
 	.domain([4, 26])
-	.range([0,h-20]);
+	.range([0,h-3*mathData.length]);
 	
 var svgContainer = d3.select("body").append("svg")
 	.attr("width", w)
@@ -41,7 +41,7 @@ var wide = 0;
 var tall = 0;
 
 for(i=0; i < mathData.length; i++){
-	ypos = y(2*1+4)+(i+1);
+	ypos = y(2*i+4)+(i+1);
 	wide = x(mathData[i]);
 	tall = y(6);
 	var rectangle = svgContainer.append("rect")
@@ -52,7 +52,7 @@ for(i=0; i < mathData.length; i++){
 }
 
 for(i=0; i < sciData.length; i++){
-	ypos = y(2*1+4)+(i+1);
+	ypos = y(2*i+4)+(i+1);
 	wide = x(sciData[i]);
 	xpos = w-wide-10;
 	tall = y(6);
