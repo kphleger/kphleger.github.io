@@ -8,52 +8,64 @@ var dispYr = 3;
 
 
 $.getJSON(url, function(d) {
-	//move the data to an array and find the maximum
-	var data = [];
-	var max = 0;
+	//get the domain
 	var dom = [];
-	var year = [];
-	var domy = [];
 	for (i = 0; i < d.length; i++) {
-		year = [];
-		domy = [];
+		dom = [];
 		for (var a in d[i]) {
 			if(!isNaN(d[i][a])) {
-				year.push([d[i][a], a]);
-				if(d[i][a] > max) { max = d[i][a]; }
-				domy.push(a);
+				dom.push(a);
 			}
 		}
-		data.push(year);
-		dom = domy;
+	}
+	var max = [];
+	var j = 0;
+	//initialize the maximum array
+	for (i = 0; i < dom.length; i++) {
+		max.push(0);
+	}
+	for (i = 0; i < d.length; i++) {
+		j = 0;
+		for (var a in d[i]) {
+			if(!isNaN(d[i][a])) {
+				max[j] = max[j] + d[i][a];
+				console.log(max[j]);
+				j++;
+			}
+		}
 	}
 	//define the scale functions
 	var xScale = d3.scale.ordinal()
 		.domain(dom)
 		.rangeRoundBands([0, w], wborder/w, 2*wborder/w);
 	var yScale = d3.scale.linear()
-		.domain([0, max])
+		.domain([0, Math.max(max)])
 		.range([0, h-hborder]);
 	var yAxisScale = d3.scale.linear()
-		.domain([max, 0])
-		.range([0, h-hborder]);
+		.domain([0, Math.max(max)])
+		.range([h-hborder, 0]);
 	//put in the svg element
 	var chartArea = d3.select("#barchart").append("svg")
 		.attr("width", w)
 		.attr("height", h);
-	//iterate through the data to build the bars
-	var bars = chartArea.selectAll("rect")
-		.data(data[dispYr])
+	//iterate through the data to make room for the student years
+	var years = chartArea.selectAll("div")
+		.data(d)
 		.enter()
-		.append("rect");
-	var rectAttributes = bars
+		.append("div");
+	var yearAttributes = years
+		.attr("class", d.Year);
+	
+	
+	//iterate through each year to build more bars and give them attributes
+/*	var rectAttributes = bars
 		.attr("x", function(d) {
 			return xScale(d[1]);
 			})
 		.attr("y", function(d) { return h-yScale(d[0])-hborder; })
 		.attr("height", function(d) { return yScale(d[0]); })
 		.attr("width", function(d) { return xScale.rangeBand(); })
-		.style("fill", "blue");
+		.style("fill", "blue");*/
 	//build the axes
 	var xAxis = d3.svg.axis()
 		.scale(xScale);
