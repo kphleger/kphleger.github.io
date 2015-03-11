@@ -8,19 +8,30 @@ var dispYr = 3;
 
 
 $.getJSON(url, function(d) {
-	//get the domain
+	//get the domain and data
+	var data = [];
 	var dom = [];
+	var range = [];
+	var year = [];
+	var domy = [];
 	for (i = 0; i < d.length; i++) {
-		dom = [];
+		year = [];
+		domy = [];
 		for (var a in d[i]) {
-			if(!isNaN(d[i][a])) {
-				dom.push(a);
+			if(isNaN(d[i][a])) {
+				range.push(d[i][a]);
+			}else{
+				year.push([d[i][a], a]);
+				if(d[i][a] > max) { max = d[i][a]; }
+				domy.push(a);
 			}
 		}
+		data.push(year);
+		dom = domy;
 	}
+	
+	//find the maximum
 	var max = [];
-	var j = 0;
-	//initialize the maximum array
 	for (i = 0; i < dom.length; i++) {
 		max.push(0);
 	}
@@ -29,43 +40,51 @@ $.getJSON(url, function(d) {
 		for (var a in d[i]) {
 			if(!isNaN(d[i][a])) {
 				max[j] = max[j] + d[i][a];
-				console.log(max[j]);
 				j++;
 			}
 		}
 	}
+	for (i = 1; i < max.length; i++) {
+		if(max[i] > max[0]) { max[0] = max[i]; }
+	}
+	max = max[0];
+	
 	//define the scale functions
 	var xScale = d3.scale.ordinal()
 		.domain(dom)
 		.rangeRoundBands([0, w], wborder/w, 2*wborder/w);
 	var yScale = d3.scale.linear()
-		.domain([0, Math.max(max)])
+		.domain([0, max])
 		.range([0, h-hborder]);
 	var yAxisScale = d3.scale.linear()
-		.domain([0, Math.max(max)])
+		.domain([0, max])
 		.range([h-hborder, 0]);
+	
 	//put in the svg element
 	var chartArea = d3.select("#barchart").append("svg")
 		.attr("width", w)
 		.attr("height", h);
+	
 	//iterate through the data to make room for the student years
-	var years = chartArea.selectAll("div")
-		.data(d)
-		.enter()
-		.append("div");
-	var yearAttributes = years
-		.attr("class", d.Year);
+	var hSoFar = h-hborder;
+	for (i = 0; i < range.length; i++) {
+		var bars = chartArea.selectAll("rect")
+			.data(data[i])
+			.enter()
+			.append("rect");
+		var rectAttributes = bars
+			.attr("x", function(d) { return xScale(d[1]); })
+			.attr("y", function(d) { 
+				hSoFar = hSoFar - yScale(d[0])
+				return hSoFar; 
+				})
+			.attr("height", function(d) { return yScale(d[0]); })
+			.attr("width", function(d) { return xScale.rangeBand(); })
+			.attr("id", function() {
+				return range[i];
+				});
+	}
 	
-	
-	//iterate through each year to build more bars and give them attributes
-/*	var rectAttributes = bars
-		.attr("x", function(d) {
-			return xScale(d[1]);
-			})
-		.attr("y", function(d) { return h-yScale(d[0])-hborder; })
-		.attr("height", function(d) { return yScale(d[0]); })
-		.attr("width", function(d) { return xScale.rangeBand(); })
-		.style("fill", "blue");*/
 	//build the axes
 	var xAxis = d3.svg.axis()
 		.scale(xScale);

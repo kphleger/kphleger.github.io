@@ -8,3 +8,16 @@
 .axis text {
 	font-size: 11px;
 }
+
+#Freshman {
+	fill: #00CCFF;
+}
+#Sophomore {
+	fill: #00CC00;
+}
+#Junior {
+	fill: #FF33CC;
+}
+#Senior {
+	fill: #FF3300;
+}
