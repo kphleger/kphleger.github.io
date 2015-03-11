@@ -65,25 +65,32 @@ $.getJSON(url, function(d) {
 		.attr("width", w)
 		.attr("height", h);
 	
-	//iterate through the data to make room for the student years
-	var hSoFar = h-hborder;
-	for (i = 0; i < range.length; i++) {
-		var bars = chartArea.selectAll("rect")
-			.data(data[i])
+	//iterate through the data to make bar chart
+	var hSoFar = [h-hborder, h-hborder, h-hborder, h-hborder, h-hborder];
+	//for (i = 1; i < range.length; i++) {
+		var index = 0;
+		var jndex = 0;
+		var bars = chartArea.selectAll("g")
+			.data(data/*, function() { index++; }*/)
 			.enter()
-			.append("rect");
-		var rectAttributes = bars
+			.append("g")
+			.selectAll("rect")
+			.data(function(d) {/* jndex++;*/ return d; })
+			.enter()
+			.append("rect")
 			.attr("x", function(d) { return xScale(d[1]); })
 			.attr("y", function(d) { 
-				hSoFar = hSoFar - yScale(d[0])
-				return hSoFar; 
+				//hSoFar[jndex] = hSoFar[jndex] - yScale(d[0])
+				//console.log(hSoFar[jndex]);
+				//return hSoFar[jndex]; 
+				return h-yScale(d[0])-hborder;
 				})
 			.attr("height", function(d) { return yScale(d[0]); })
 			.attr("width", function(d) { return xScale.rangeBand(); })
 			.attr("id", function() {
-				return range[i];
+				return range[index];
 				});
-	}
+	//}
 	
 	//build the axes
 	var xAxis = d3.svg.axis()
