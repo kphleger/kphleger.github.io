@@ -11,23 +11,21 @@ $.getJSON(url, function(d) {
 	//get the domain and data
 	var data = [];
 	var dom = [];
-	var range = [];
+	var rang = [];
 	var year = [];
-	var domy = [];
 	for (i = 0; i < d.length; i++) {
 		year = [];
-		domy = [];
+		dom = [];
 		for (var a in d[i]) {
 			if(isNaN(d[i][a])) {
-				range.push(d[i][a]);
+				rang.push(d[i][a]);
 			}else{
 				year.push([d[i][a], a]);
 				if(d[i][a] > max) { max = d[i][a]; }
-				domy.push(a);
+				dom.push(a);
 			}
 		}
 		data.push(year);
-		dom = domy;
 	}
 	
 	//find the maximum
@@ -67,30 +65,35 @@ $.getJSON(url, function(d) {
 	
 	//iterate through the data to make bar chart
 	var hSoFar = [h-hborder, h-hborder, h-hborder, h-hborder, h-hborder];
-	//for (i = 1; i < range.length; i++) {
-		var index = 0;
-		var jndex = 0;
-		var bars = chartArea.selectAll("g")
-			.data(data/*, function() { index++; }*/)
-			.enter()
-			.append("g")
-			.selectAll("rect")
-			.data(function(d) {/* jndex++;*/ return d; })
-			.enter()
-			.append("rect")
-			.attr("x", function(d) { return xScale(d[1]); })
-			.attr("y", function(d) { 
-				//hSoFar[jndex] = hSoFar[jndex] - yScale(d[0])
-				//console.log(hSoFar[jndex]);
-				//return hSoFar[jndex]; 
-				return h-yScale(d[0])-hborder;
-				})
-			.attr("height", function(d) { return yScale(d[0]); })
-			.attr("width", function(d) { return xScale.rangeBand(); })
-			.attr("id", function() {
-				return range[index];
-				});
-	//}
+	var index = 0;
+	var bars = chartArea.selectAll("g")
+		.data(data, function(d) { 
+			for(i=0; i<d.length; i++) {
+				d[i].push(index);
+				d[i].push(i);
+			}
+			index++; 
+			return d; 
+			})
+		.enter()
+		.append("g")
+		.selectAll("rect")
+		.data(function(d) { 
+			return d; 
+			})
+		.enter()
+		.append("rect")
+		.attr("id", function(d) {
+			return rang[d[2]];
+			})
+		.attr("x", function(d) { return xScale(d[1]); })
+		.attr("y", function(d) { 
+			hSoFar[d[3]] = hSoFar[d[3]] - yScale(d[0])
+			return hSoFar[d[3]]; 
+			})
+		.attr("height", function(d) { return yScale(d[0]); })
+		.attr("width", function(d) { return xScale.rangeBand(); });
+		
 	
 	//build the axes
 	var xAxis = d3.svg.axis()
