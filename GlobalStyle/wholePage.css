@@ -1,0 +1,30 @@
+#navbar {
+	display: block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 180%;
+	list-style-type: none;
+	text-align: center;
+	padding: 0;
+    	background-color: #6699FF;
+    	padding-top: -10px;
+}
+
+#navlinkspace{
+	display: inline;
+	padding-right: 50px;
+	padding-left: 50px;
+}
+
+#navlink {
+	width: auto;
+	color: #000066;
+}
+
+#currentpage {
+	display: inline;
+	color: #000066;
+	padding-right: 50px;
+	padding-left: 50px;
+}
+
