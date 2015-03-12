@@ -1,7 +1,7 @@
 //some constants
 var w = 500;
 var h = 300;
-var wborder = 90;
+var wborder = 150;
 var hborder = 30;
 var url = "https://hivelab.org/static/exam1.json";
 
@@ -108,6 +108,13 @@ $.getJSON(url, function(d) {
 		.attr("class", "axis")
 		.attr("transform", "translate(" + wborder*0.3 + ", 0)")
 		.call(yAxis);
+	var yAxisLabel = chartArea.append("text")
+		.attr("class", "ylabel")
+		.attr("text-anchor", "end")
+		.attr("x", -h/3)
+		.attr("dy", "0.7em")
+		.attr("transform", "rotate(-90)")
+		.text("Students");
 	
 	//Build the legend
 	var legendArea = d3.select("#legend").append("svg")
