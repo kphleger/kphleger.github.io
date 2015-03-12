@@ -4,7 +4,6 @@ var h = 300;
 var wborder = 90;
 var hborder = 30;
 var url = "https://hivelab.org/static/exam1.json";
-var dispYr = 3;
 
 
 $.getJSON(url, function(d) {
@@ -109,4 +108,28 @@ $.getJSON(url, function(d) {
 		.attr("class", "axis")
 		.attr("transform", "translate(" + wborder*0.3 + ", 0)")
 		.call(yAxis);
+	
+	//Build the legend
+	var legendArea = d3.select("#legend").append("svg")
+		.attr("width", 100)
+		.attr("height", rang.length*12);
+	var legendColors = legendArea.selectAll("rect")
+		.data(rang)
+		.enter()
+		.append("rect")
+		.attr("id", function(d) { return d; })
+		.attr("width", 10)
+		.attr("height", 10)
+		.attr("x", 1)
+		.attr("y", function(d, i) { return i*11+1; });
+	var legendTitles = legendArea.selectAll("text")
+		.data(rang)
+		.enter()
+		.append("text")
+		.text(function(d) { return d; })
+		.attr("width", 98)
+		.attr("height", 10)
+		.attr("x", 12)
+		.attr("y", function(d, i) { return i*11+11; });
+	
 	});
