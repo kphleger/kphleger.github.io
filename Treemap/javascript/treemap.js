@@ -1,7 +1,8 @@
 var csvLink = "https://hivelab.org/static/coffee.csv";
+var coffeeTree;
 
 d3.csv(csvLink, function(data) {
-	var coffeeTree = d3.nest()
+	coffeeTree = d3.nest()
 		.key(function(d) {return d.region; })
 		.key(function(d) {return d.state; })
 		.key(function(d) {return d.caffeination; })
