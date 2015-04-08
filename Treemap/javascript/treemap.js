@@ -6,6 +6,13 @@ var states = [];
 var caffeinations = [];
 var types = [];
 
+function children(thisParent, list, grandChildren) {
+	var newChildren = [];
+	list.forEach( function(d) {
+		newChildren.push({"name": d, "children": [grandChildren]});
+	})
+	return newChildren;
+}
 
 d3.csv(csvLink, function(data) {
 	data.forEach( function(d) {
@@ -22,11 +29,10 @@ d3.csv(csvLink, function(data) {
 			types.push(d.type);
 		}
 	});
-	regions.forEach( function(d) {
-		coffeeTree.children.push({"name": d, "children": 
-			data.filter(function(obj) {
+	coffeeTree.children = (
+		children(regions, children(states, children(caffeinations, children(types, ["a", "b", "c"]))))
+	);
+/*			data.filter(function(obj) {
 				if( obj.region === d ) {return obj};
-			})
-		});
-	});
+			})*/
 });
