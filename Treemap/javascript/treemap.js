@@ -1,6 +1,6 @@
 //declare the big constant variables
 //var csvLink = "https://hivelab.org/static/coffee.csv";
-var csvLink = "/data/coffee.csv";
+var csvLink = "data/coffee.csv";
 var margin = {top: 40, right: 10, bottom: 10, left: 10};
 
 var coffeeTreeMap;
