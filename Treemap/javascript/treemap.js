@@ -1,4 +1,7 @@
+//declare the big constant variables
 var csvLink = "https://hivelab.org/static/coffee.csv";
+var margin = {top: 40, right: 10, bottom: 10, left: 10};
+
 var coffeeTreeMap;
 
 function position() {
@@ -30,26 +33,23 @@ function reNameTree(tree, value_key) {
 }
 		
 d3.csv(csvLink, function(data) {
-	var coffeeTree = d3.nest()
+	// define width and height based on the margin
+	var width = 960 - margin.left - margin.right;
+	var height = 500 - margin.top - margin.bottom;
+	
+	// nest the data into coffeeTreeMap
+	coffeeTreeMap = {"key": "Data", "values": d3.nest()
 		.key(function(d) {return d.region; })
 		.key(function(d) {return d.state; })
 		.key(function(d) {return d.caffeination; })
 		.key(function(d) {return d.type; })
-		.entries(data);
-
-	coffeeTreeMap = {};
-	coffeeTreeMap.key = "Data";
-	coffeeTreeMap.values = coffeeTree;
+		.entries(data)
+		};
 	
+	//Format the new data for the treemap
 	coffeeTreeMap = reNameTree(coffeeTreeMap, "sales");
-//Begin Treemap generation
-
-	var margin = {top: 40, right: 10, bottom: 10, left: 10},
-		width = 960 - margin.left - margin.right,
-		height = 500 - margin.top - margin.bottom;
-
-	var color = d3.scale.category20c();
-
+	
+	//Begin Treemap generation
 	var treemap = d3.layout.treemap()
 		.size([width, height])
 		.sticky(true)
@@ -62,13 +62,17 @@ d3.csv(csvLink, function(data) {
 		.style("left", margin.left + "px")
 		.style("top", margin.top + "px");
 
-//	d3.json("flare.json", function(error, root) {
 	var node = div.datum(coffeeTreeMap).selectAll(".node")
 		.data(treemap.nodes)
-		.enter().append("div")
+		.enter()
+		.append("div")
 		.attr("class", "node")
 		.call(position)
-		.style("background", "red"/*function(d) { return d.values ? color(d.caffeination) : null; }*/)
+		.style("background", function(d) {
+			if(d.caffeination === "Decaf") {
+				return "#FF9933";
+			} else {
+				return "#993300";
+			}})
 //		.text(function(d) { return d.values ? null : d.; });
-//	});
 });
