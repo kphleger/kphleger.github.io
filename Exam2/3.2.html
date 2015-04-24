@@ -2,13 +2,67 @@
 	<head>
 		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+		<style type="text/css">
+		table, th, td {
+			border: 1px solid black;
+			text-align: right;
+		}
+		th {
+			background-color: lightgray;
+		}
+		</style>
 	</head>
 	<body>
-		<div id="myTable"></div>
+		<table id="myTable"></table>
 		<script type="text/javascript">
-//			var jsonLink = "hivelab.org/static/exam2.json";
-			var jsonLink = "exam2.json";
+			//function declarations
+			function drawTable(data, tableBody) {
+				//Populate the body of the table
+				//	By creating rows...
+				var rows = tableBody.selectAll("tr")
+					.data(data)
+					.enter()
+					.append("tr")
+					.attr("id", function(d) {return d.ItemNo;});
+				//	...then populating the rows with cells
+				var cells = rows.selectAll("td")
+					.data(function(d) {return d3.values(d);})
+					.enter()
+					.append("td")
+					.text(function(d) {return d;});
+			}
+			
+			function sortData(data, key) {
+				var output = [];
+				var sorted = [];
+				data.forEach(function(d) {
+					sorted.push(d.key);
+				});
+				
+			}
+			
+			//declare global variables
+			var jsonLink = "http://kphleger.github.io/Exam2/exam2.json";
+//			var jsonLink = "exam2.json";
+			var selected = "";
+
+			//Get the data and make the table!
+			d3.json(jsonLink, function(data) {
+				//Create the head of the table
+				var thead = d3.select("#myTable").append("thead");
+				//Populate the head of the table
+				var headCells = thead.selectAll("th")
+					.data(d3.keys(data[0]))
+					.enter()
+					.append("th")
+					.text(function(d) {return d;});
+				
+				//Create the body of the table
+				var tbody = d3.select("#myTable").append("tbody")
+					.attr("id", "tbody");
+				
+				drawTable(data, tbody);
+			});
 		</script>
-		<p>Sorry, but there's nothing here.</p>
 	</body>
 </html>
