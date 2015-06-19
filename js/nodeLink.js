@@ -34,7 +34,7 @@ d3.json(jsonLink, function(error, graph) {
 		.enter().append("circle")
 		.attr("class", "node")
 		.attr("r", function(d) {return Math.sqrt(1000*d.value/3.14); })
-		.style("fill", function(d) { return color(d.group); })
+		.style("fill", function(d) { return d.color; })
 		.call(force.drag);
 
 	node.append("title")
