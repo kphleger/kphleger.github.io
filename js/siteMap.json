@@ -1,8 +1,8 @@
 {
   "nodes":[
-	{"name":"Home","color":"red","value":1},
-    {"name":"LinkedIn","color":"blue","value":3},
-    {"name":"Games","color":"green","value":1}
+	{"name":"Home","color":"#FF0000","value":1,"link":""},
+    {"name":"LinkedIn","color":"#0000FF","value":3,"link":"https://www.linkedin.com/pub/kristofer-phleger-schumacher/42/806/908"},
+    {"name":"Games","color":"#00FF00","value":1,"link":"Games/gamesIndex.html"}
   ],
   "links":[
     {"source":0,"target":1,"value":1},
