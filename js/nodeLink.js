@@ -4,8 +4,6 @@ var jsonLink = "https://kphleger.github.io/js/siteMap.json";
 var width = 960,
     height = 500;
 
-var color = d3.scale.category20();
-
 var force = d3.layout.force()
     .charge(-100)
     .linkDistance(300)
@@ -34,7 +32,7 @@ d3.json(jsonLink, function(error, graph) {
 		.enter().append("circle")
 		.attr("class", "node")
 		.attr("r", function(d) {return Math.sqrt(1000*d.value/3.14); })
-		.style("fill", function(d) { return d.color; })
+		.style("fill", "red")
 		.call(force.drag);
 
 	node.append("title")
