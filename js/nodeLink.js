@@ -1,5 +1,5 @@
-var jsonLink = "https://kphleger.github.io/js/siteMap.json";
-//var jsonLink = "js/siteMap.json";
+//var jsonLink = "https://kphleger.github.io/js/siteMap.json";
+var jsonLink = "js/siteMap.json";
 
 var width = 960,
     height = 500;
@@ -27,26 +27,29 @@ d3.json(jsonLink, function(error, graph) {
 		.attr("class", "link")
 		.style("stroke-width", function(d) {return d.value; });
 
-	var node = svg.selectAll(".node")
+	var gnodes = svg.selectAll("g.node")
 		.data(graph.nodes)
-		.enter().append("circle")
+		.enter().append('g')
+		.attr("class", "gnode");
+	
+	var node = gnodes.append("circle")
 		.attr("class", "node")
 		.attr("r", function(d) {return Math.sqrt(1000*d.value/3.14); })
-		.attr("id", function(d) {return d.name; })
 		.style("fill", function(d) {return d.color; })
 		.on("click", function(d) {window.location.href = d.link;})
 		.call(force.drag);
 
-	node.append("title")
+	var labels = gnodes.append("text")
 		.text(function(d) {return d.name; });
-
+		
 	force.on("tick", function() {
 		link.attr("x1", function(d) {return d.source.x; })
 			.attr("y1", function(d) {return d.source.y; })
 			.attr("x2", function(d) {return d.target.x; })
 			.attr("y2", function(d) {return d.target.y; });
 
-		node.attr("cx", function(d) {return d.x; })
-			.attr("cy", function(d) {return d.y; });
+		gnodes.attr("transform", function(d) { 
+			return 'translate(' + [d.x, d.y] + ')';
+		});
 	});
 });
