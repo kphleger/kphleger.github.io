@@ -3,7 +3,7 @@
 	{"name":"Home","color":"#FF0000","value":2,"link":""},
     {"name":"LinkedIn","color":"#0000FF","value":2,"link":"https://www.linkedin.com/pub/kristofer-phleger-schumacher/42/806/908"},
     {"name":"Games","color":"#00FF00","value":2,"link":"Games/gamesIndex.html"},
-	{"name":"","color":"#5EFF5E","value":1,"link":""}
+	{"name":"Tile Puzzle","color":"#5EFF5E","value":1,"link":"Games/SlidingTiles/slidingTiles.html"}
   ],
   "links":[
     {"source":0,"target":2,"value":1},
